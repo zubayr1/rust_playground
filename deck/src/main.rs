@@ -1,6 +1,8 @@
 
 use rand::{thread_rng, seq::SliceRandom};
 
+const NUM_DEAL: usize = 3;
+
 #[derive(Debug)]
 struct Deck {
     cards: Vec<String>,
@@ -45,7 +47,12 @@ fn main() {
     deck.shuffle();
     println!("Here is your shuffled deck: {:?}", deck);
 
-    let hand = deck.deal(3);
+    if deck.cards.len() < NUM_DEAL {
+        println!("Not enough cards to deal");
+        return;
+    }
+
+    let hand = deck.deal(NUM_DEAL);
     println!("Here is your hand: {:?}", hand);
     println!("Here is your remaining deck: {:?}", deck);
 }
