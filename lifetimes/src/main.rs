@@ -89,6 +89,14 @@ fn make_and_return_account() -> Account {
     account
 }
 
+fn change_account_name(account: &mut Account, name: String) {
+    account.name = name;
+}
+
+fn read_account_name(account: &Account) -> &str {
+    &account.name
+}
+
 fn main() {
     make_and_print_account();
 
@@ -120,4 +128,14 @@ fn main() {
 
     set_bank_name(&mut bank, "New Bank".to_string());
     println!("{:?}", bank);
+
+    let mut account1 = make_and_return_account();
+    let name1 = read_account_name(&account1);
+    
+    change_account_name(&mut account1, "New Name".to_string());
+    println!("{:?}", account1);
+    // println!("{}", name1);
+
+    let name1 = read_account_name(&account1);
+    println!("{}", name1);
 }
