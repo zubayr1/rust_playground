@@ -40,6 +40,22 @@ impl Bank {
     fn get_summary(&self) -> Vec<String> {
         self.accounts.iter().map(|a| format!("Account: {}, Balance: {}", a.id, a.balance)).collect()
     }
+
+    fn get_account_by_id(&self, id: u32) -> Option<&Account> {
+        self.accounts.iter().find(|a| a.id == id)
+    }
+
+    fn print_bank_name(&self, bank: &Bank) {
+        println!("Bank name: {}", bank.name);
+    }
+}
+
+fn set_bank_name(bank: &mut Bank, name: String) {
+    bank.name = name;
+}
+
+fn get_bank_name(bank: &Bank) -> &str {
+    &bank.name
 }
 
 #[derive(Debug)]
@@ -89,4 +105,19 @@ fn main() {
     // bank.get_account_balance(1);
 
     println!("{:?}", bank.get_summary());
+
+    bank.print_bank_name(&bank);
+    bank.print_bank_name(&bank);
+
+    let name = get_bank_name(&bank);
+
+    // set_bank_name(&mut bank, "New Bank".to_string());
+    // println!("{:?}", bank);
+
+    println!("{}", name);
+
+    // OR
+
+    set_bank_name(&mut bank, "New Bank".to_string());
+    println!("{:?}", bank);
 }
