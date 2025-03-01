@@ -77,6 +77,12 @@ impl Account {
     fn withdraw(&mut self, amount: f64) {
         self.balance -= amount;
     }
+
+    fn wrong_update_balance(&mut self, amount: f64) {
+        let account = self;
+
+        account.balance = amount;
+    }
 }
 
 fn make_and_print_account() {
@@ -101,6 +107,9 @@ fn main() {
     make_and_print_account();
 
     let mut account = make_and_return_account();
+    println!("{:?}", account);
+
+    account.wrong_update_balance(100.0);
     println!("{:?}", account);
 
     let mut bank = Bank::new("My Bank".to_string());
