@@ -1,29 +1,6 @@
-#[derive(Debug)]
-enum Media {
-    Book{
-        title: String,
-        author: String,
-    },
-    Movie{
-        title: String,
-        director: String,
-    },
-    AudioBook{
-        title: String,
-    },
-    Placeholder,
-}
+pub mod content;
 
-impl Media {
-    fn description(&self) -> String {
-        match self {
-            Media::Book{title, author} => format!("Book: {} by {}", title, author),
-            Media::Movie{title, director} => format!("Movie: {} by {}", title, director),
-            Media::AudioBook{title} => format!("AudioBook: {}", title),
-            Media::Placeholder => "Placeholder".to_string(),
-        }
-    }
-}
+use content::*;
 
 fn print_media(media: &Media) {
     match media {
@@ -34,37 +11,6 @@ fn print_media(media: &Media) {
     }
 }
 
-#[derive(Debug)]
-struct Catalog {
-    items: Vec<Media>,
-}
-
-impl Catalog {
-    fn new() -> Self {
-        Catalog { items: Vec::new() }
-    }
-
-    fn add_item(&mut self, item: Media) {
-        self.items.push(item);
-    }
-
-    fn get_by_index(&self, index: usize) -> Option<&Media> {
-        self.items.get(index)
-    }
-
-    fn get_by_index2(&self, index: usize) -> MightAValue {
-        match self.items.get(index) {
-            Some(media) => MightAValue::Value(media),
-            None => MightAValue::NoValue,
-        }
-    }
-}
-
-#[derive(Debug)]
-enum MightAValue<'a> {
-    Value(&'a Media),
-    NoValue,
-}
 
 fn main() {
     let book = Media::Book{
