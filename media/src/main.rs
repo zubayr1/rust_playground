@@ -47,8 +47,24 @@ impl Catalog {
     fn add_item(&mut self, item: Media) {
         self.items.push(item);
     }
+
+    fn get_by_index(&self, index: usize) -> Option<&Media> {
+        self.items.get(index)
+    }
+
+    fn get_by_index2(&self, index: usize) -> MightAValue {
+        match self.items.get(index) {
+            Some(media) => MightAValue::Value(media),
+            None => MightAValue::NoValue,
+        }
+    }
 }
 
+#[derive(Debug)]
+enum MightAValue<'a> {
+    Value(&'a Media),
+    NoValue,
+}
 
 fn main() {
     let book = Media::Book{
@@ -70,4 +86,25 @@ fn main() {
     catalog.add_item(movie);
 
     println!("{:?}", catalog);
+
+    println!("{:?}", catalog.items.get(0));
+
+    match catalog.items.get(0) {
+        Some(media) => print_media(media),
+        None => println!("No media found"),
+    }
+
+    let media = catalog.get_by_index(0);
+    match media {
+        Some(media) => print_media(media),
+        None => println!("No media found"),
+    }
+
+    let media = catalog.get_by_index2(20);
+    println!("{:?}", media);
+
+    match media {
+        MightAValue::Value(media) => print_media(media),
+        MightAValue::NoValue => println!("No media found"),
+    }
 }
